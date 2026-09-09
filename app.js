@@ -98,20 +98,36 @@
     }
   }
 
+  /* Both banners show the SAME four metrics, read from cascade.csv so they cannot
+     drift from the analysis. Q1's row is the recommended 11-stem variant; Q6's is
+     the 14-stem list shown in its banner (the 0.90-target cover). */
+  function cascadeStats(q, row) {
+    const alone = D.cascade.find(r => r.question === q && r.stage === "classifier_only");
+    return [
+      ["AI calls needed", pct0(row.llm), " up", "down from 100%"],
+      ["Relevant sections lost", row.lost + " of " + POS[q], "",
+        row.lost === 0 ? "no cost to the pipeline" : "in the full system"],
+      ["Accuracy of flagged", pct0(row.precision),
+        row.precision > alone.precision ? " up" : "",
+        "was " + pct0(alone.precision) + " without it"],
+      ["Needs text processing", "No", "", "plain regex works"],
+    ];
+  }
+  const POS = { Q1: 68, Q6: 203 };
+  const q1Row = D.cascade.find(r => r.stage === "variant:q1_11stem_no_he"
+                                 && r.matcher === "prefix_regex");
+  const q6Row = D.cascade.find(r => r.question === "Q6" && r.target === 0.90);
+
   regexCard($("#rx-q1"), "q1", true,
     'Word <b>stems</b>, so <code>consult</code> also matches "consultation" and "consultant". ' +
     'These are Q1\'s own subject matter: consulting, coordinating, appointing, making rules.',
-    [["AI calls needed", "23%", " up", "down from 100%"],
-     ["Relevant sections lost", "2 of 68", "", "in the full system"],
-     ["Accuracy of flagged", "64%", " up", "was 57% without it"],
-     ["Needs text processing", "No", "", "plain regex works"]]);
+    cascadeStats("Q1", q1Row));
 
   regexCard($("#rx-q6"), "q6", false,
     '<code>construct</code> and <code>mainten</code> were chosen in all 20 rebuilds — they are ' +
-    'the dependable core. Useful for triage or sampling, but not as a cost filter.',
-    [["Catches", "94.6%", "", "of relevant sections"],
-     ["Keeps", "31%", "", "of all sections"],
-     ["Why not deploy", "7.7%", "", "already reach the AI"]]);
+    'the dependable core. The figures below show what this pattern would do if deployed; ' +
+    'we still advise against it, because only 7.7% of Q6 sections reach the expensive model today.',
+    cascadeStats("Q6", q6Row));
 
   /* ── generic table builder ───────────────────────────────── */
   function table(host, cols, rows, opts) {
