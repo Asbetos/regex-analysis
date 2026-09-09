@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regex Pre-Filter Results — Q1 &amp; Q6</title>
+<meta name="description" content="Cross-validated results for keyword pre-filters on U.S. Statutes classification questions Q1 and Q6.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<button class="theme-btn" id="themeBtn" title="Switch light / dark" aria-label="Switch light or dark theme">◐</button>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Citizen Voice · U.S. Statutes classification</div>
+    <h1>Can a simple word search cut the AI's workload?</h1>
+    <p class="standfirst">
+      Every statute section currently goes to an AI model to be labelled, which is slow and
+      expensive. We tested whether a plain keyword search can throw out the clearly-irrelevant
+      sections first, so the model only reads the plausible ones — and measured how many correct
+      answers that costs.
+    </p>
+    <div class="meta-row">
+      <span><b>14,308</b> coded sections</span>
+      <span><b>3,018</b> laws · <b>24</b> volumes</span>
+      <span><b>1947–2021</b></span>
+      <span><b>20×</b> repeated 70/30 validation</span>
+      <span>Questions <b>Q1</b> (outside consultation) &amp; <b>Q6</b> (construction &amp; maintenance)</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" aria-selected="true"  data-p="overview">Overview</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="q1">Q1 results</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="q6">Q6 results</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="decade">Decade analysis</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="guide">What the numbers mean</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ══════════════ OVERVIEW ══════════════ -->
+<div class="panel is-active" id="p-overview" role="tabpanel">
+
+  <div class="verdict">
+    <div>
+      <div class="tag yes"><span class="dot"></span>Recommended for Q1</div>
+      <h3>Use the filter — it cuts AI calls by 77%</h3>
+      <p>Sends only 23% of sections to the AI. Costs 2 relevant sections out of 68, and the
+         accuracy of what it flags actually improves.</p>
+    </div>
+    <div>
+      <div class="tag no"><span class="dot"></span>Not recommended for Q6</div>
+      <h3>Skip the filter — it saves the wrong step</h3>
+      <p>Q6 already sends just 7.7% of sections to the expensive model. A filter would trim the
+         cheap step while losing correct answers.</p>
+    </div>
+  </div>
+
+  <div class="note key">
+    <b>The one-line reason.</b> A filter only helps when everything currently goes to the
+    expensive model. That is true for Q1, and not true for Q6.
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <h2>The recommended pattern for Q1</h2>
+      <p class="sub">This is the pattern to deploy. It is an ordinary regular expression — no
+        special software or text pre-processing required.</p>
+    </div>
+    <div class="card" id="rx-q1"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The pattern for Q6</h2>
+      <p class="sub">Included for completeness and for other uses such as triage or sampling.
+        We do not recommend it as a cost filter, for the reason above.</p>
+    </div>
+    <div class="card" id="rx-q6"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>What it costs and what it saves</h2>
+      <p class="sub">Measured on 1,789 sections from three volumes the filter had never seen,
+        run through the real AI model.</p>
+    </div>
+    <div class="t-wrap" id="t-cascade"></div>
+    <p class="t-note">"Relevant found" counts sections the human coders marked relevant that the
+      end-to-end system also caught. The AI misses many on its own — that limit is the AI's, not
+      the filter's.</p>
+    <div class="note caution">
+      <b>Important when quoting these numbers.</b> Do not describe the filter as "98% accurate".
+      The complete system finds about 45% of relevant Q1 sections whether the filter is used or
+      not — that ceiling comes from the AI model. The honest claim is
+      <b>same results, roughly a quarter of the cost</b>.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>How we tested it</h2>
+      <p class="sub">The earlier attempt at this chose its keywords by looking at the answers and
+        then graded itself on those same answers — so its scores meant nothing. We fixed that.</p>
+    </div>
+    <div class="card">
+      <ol style="margin:0; padding-left:22px; color:var(--text-secondary); font-size:15px;">
+        <li style="margin-bottom:9px"><b style="color:var(--text-primary)">Hide some laws.</b>
+          Split into 70% "study" and 30% "exam". Whole laws move together, never split — sections
+          of one act reuse each other's wording, which would leak answers.</li>
+        <li style="margin-bottom:9px"><b style="color:var(--text-primary)">Choose the words using only the study set.</b>
+          The exam set is never consulted.</li>
+        <li style="margin-bottom:9px"><b style="color:var(--text-primary)">Grade once on the exam set.</b>
+          No peeking, no second attempts.</li>
+        <li><b style="color:var(--text-primary)">Repeat 20 times</b> with different splits, so no
+          single lucky split decides the answer.</li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════ Q1 ══════════════ -->
+<div class="panel" id="p-q1" role="tabpanel">
+  <section>
+    <div class="sec-head">
+      <h2>Q1 — validation results</h2>
+      <p class="sub">Q1 asks whether a section involves consultation or coordination with parties
+        outside the federal government. 653 of 14,306 sections qualify (4.6%).</p>
+    </div>
+    <div class="stats" id="s-q1"></div>
+    <div class="note key" style="margin-top:26px">
+      <b>How to read the table.</b> Each row is a different setting of how aggressive the filter
+      is. Going down the rows, the filter keeps more sections — catching more relevant ones but
+      saving less money. The highlighted row is what we recommend.
+    </div>
+    <div class="t-wrap" id="t-q1"></div>
+    <p class="t-note">Every figure is measured on held-out sections, averaged over 20 different
+      splits. "Reliable in" counts how many of the 20 splits met the target on every internal
+      check — the last row failing 4 of 20 is why we do not push the filter that far.</p>
+    <div class="note caution" style="margin-top:24px">
+      <b>Why these differ slightly from the Overview figures.</b> The numbers on this page are
+      averages over 20 validation rebuilds, where the word list is re-chosen each time. The
+      Overview quotes the <b>one final fixed word list</b> measured on three specific volumes it
+      had never seen. Both are honest; they answer different questions — "how well does this
+      method work in general" versus "what will this exact pattern do". Expect the fixed-list
+      figures to be the ones you actually get.
+    </div>
+
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Do the same words keep getting chosen?</h2>
+      <p class="sub">We re-picked the word list from scratch 20 times. A word chosen every time is
+        dependable; one chosen rarely is an accident of that particular split.</p>
+    </div>
+    <div class="chart-card" id="c-q1stab"></div>
+    <p class="t-note" id="n-q1stab"></p>
+  </section>
+</div>
+
+<!-- ══════════════ Q6 ══════════════ -->
+<div class="panel" id="p-q6" role="tabpanel">
+  <section>
+    <div class="sec-head">
+      <h2>Q6 — validation results</h2>
+      <p class="sub">Q6 asks whether a section concerns construction, maintenance or public works.
+        1,604 of 14,308 sections qualify (11.2%).</p>
+    </div>
+    <div class="stats" id="s-q6"></div>
+    <div class="note key" style="margin-top:26px">
+      <b>Q6's filter is actually the better one</b> in isolation — it catches more relevant
+      sections while discarding more of the corpus than Q1's. It still is not worth deploying,
+      because Q6's system already routes only 7.7% of sections to the expensive model.
+    </div>
+    <div class="t-wrap" id="t-q6"></div>
+    <p class="t-note">Same measurement as Q1: held-out sections, averaged over 20 splits.</p>
+    <div class="note caution" style="margin-top:24px">
+      <b>Why these differ slightly from the Overview figures.</b> The numbers on this page are
+      averages over 20 validation rebuilds, where the word list is re-chosen each time. The
+      Overview quotes the <b>one final fixed word list</b> measured on three specific volumes it
+      had never seen. Both are honest; they answer different questions — "how well does this
+      method work in general" versus "what will this exact pattern do". Expect the fixed-list
+      figures to be the ones you actually get.
+    </div>
+
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Do the same words keep getting chosen?</h2>
+      <p class="sub">Q6 has a genuinely dependable core, which Q1 does not.</p>
+    </div>
+    <div class="chart-card" id="c-q6stab"></div>
+    <p class="t-note" id="n-q6stab"></p>
+  </section>
+</div>
+
+<!-- ══════════════ DECADE ══════════════ -->
+<div class="panel" id="p-decade" role="tabpanel">
+  <section>
+    <div class="sec-head">
+      <h2>Does the filter still work on older laws?</h2>
+      <p class="sub">Drafting language changes over time, so a word list built on recent statutes
+        might fail on 1940s ones. We tested this by hiding one whole decade at a time, building
+        the filter on the other seven, then testing on the hidden decade.</p>
+    </div>
+    <div class="note key">
+      <b>The answer is yes.</b> Both filters transfer across decades — every decade stays above
+      91%. The weakest are Q1's 1940s and 1980s (both 93.8%) and Q6's 2020s (91.8%), and the
+      2020s has only 49 relevant sections so its figure moves easily. Note there are no 1950s
+      laws in the dataset; those volumes were never coded.
+    </div>
+    <div class="chart-card" id="c-lodo"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Why we did not build a separate filter per decade</h2>
+      <p class="sub">The obvious alternative is one tailored filter for each decade. We tried it,
+        and it is worse — not because eras differ, but because a single decade has too few
+        examples to learn from.</p>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card" id="c-cmp-q1"></div>
+      <div class="chart-card" id="c-cmp-q6"></div>
+    </div>
+    <div class="note caution">
+      <b>The tell is how much it discards, not its hit rate.</b> A decade-specific filter often
+      looks fine on hit rate, but only because it shrinks to one or two very common words that
+      let nearly everything through — so it saves almost nothing. It also fails to find any
+      workable word list at all in a large share of attempts (below).
+    </div>
+    <div class="t-wrap" id="t-fail"></div>
+    <p class="t-note">Out of 160 attempts per setting (8 decades × 20 splits). A "failure" means
+      no word list met the target at all, so that attempt produced nothing.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Decade-by-decade detail</h2>
+      <p class="sub">One row per decade, for the recommended setting. "Hide-one-decade" is the
+        headline test; "decade-only" is the tailored-filter comparison.</p>
+    </div>
+    <div class="t-wrap" id="t-decade"></div>
+  </section>
+</div>
+
+<!-- ══════════════ GUIDE ══════════════ -->
+<div class="panel" id="p-guide" role="tabpanel">
+  <section>
+    <div class="sec-head">
+      <h2>What every number means</h2>
+      <p class="sub">Plain-language definitions for each column in the tables, with why it matters.</p>
+    </div>
+    <dl class="gloss" id="gloss"></dl>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Two things worth knowing about the method</h2></div>
+    <div class="card">
+      <h3 style="font-size:16px">Why laws move together in the split</h3>
+      <p style="font-size:14.5px;color:var(--text-secondary);margin:8px 0 0">
+        A single act can contain hundreds of sections that reuse each other's wording, and they
+        usually share the same label. If some went into the study set and others into the exam
+        set, the filter would be graded partly on text it had already seen. Keeping each act
+        wholly on one side removes that. We checked how much this mattered by also running the
+        naive version — the difference was within noise, so this is insurance rather than the
+        thing that fixed the earlier work.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:16px">Applying the filter later needs no grouping</h3>
+      <p style="font-size:14.5px;color:var(--text-secondary);margin:8px 0 0">
+        Grouping by law was only about grading honestly. The filter itself is a fixed list of
+        words with no memory — on a new volume you run it on each section independently.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:16px">What is still outstanding</h3>
+      <p style="font-size:14.5px;color:var(--text-secondary);margin:8px 0 0">
+        One confirmation run on a freshly coded volume with the word list fixed in advance. The
+        three volumes used for the cost measurement were held out from building the filter, but
+        they have been examined several times across this project, so they are not completely
+        fresh. The recommended word list is stable — re-deriving it with those volumes fully
+        excluded returns the identical list — so this is confirmation rather than an open risk.
+      </p>
+    </div>
+  </section>
+</div>
+
+<footer class="wrap" style="padding-bottom:0">
+  Generated from <code>regex-analysis</code> · all figures reproducible via
+  <code>tasks/cv/run_cv.py</code>, <code>tasks/cv/measure_cascade.py</code> ·
+  full technical report in <code>docs/REGEX_CV_REPORT.md</code>
+</footer>
+</main>
+
+<div class="tip" id="tip"></div>
+<script src="app-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

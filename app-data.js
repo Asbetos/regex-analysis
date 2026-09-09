@@ -1,0 +1,875 @@
+window.DATA = {
+ "q1": {
+  "regex": "\\b(advisori|appoint|consult|cooper|coordin|initi|manner|notic|promulg|recommend|rule)\\w*",
+  "stems": [
+   "advisori",
+   "appoint",
+   "consult",
+   "cooper",
+   "coordin",
+   "initi",
+   "manner",
+   "notic",
+   "promulg",
+   "recommend",
+   "rule"
+  ],
+  "cv": [
+   {
+    "target": 0.9,
+    "stems": 13.6,
+    "recall": 0.9116,
+    "recall_sd": 0.0264,
+    "worst": 0.8622,
+    "screen": 0.6803,
+    "precision": 0.1272,
+    "degenerate": 0,
+    "feasible": 20
+   },
+   {
+    "target": 0.95,
+    "stems": 7.9,
+    "recall": 0.9524,
+    "recall_sd": 0.0212,
+    "worst": 0.922,
+    "screen": 0.4815,
+    "precision": 0.0829,
+    "degenerate": 0,
+    "feasible": 20
+   },
+   {
+    "target": 0.98,
+    "stems": 3.6,
+    "recall": 0.9785,
+    "recall_sd": 0.0154,
+    "worst": 0.9382,
+    "screen": 0.3107,
+    "precision": 0.0636,
+    "degenerate": 0,
+    "feasible": 19
+   },
+   {
+    "target": 0.99,
+    "stems": 1.9,
+    "recall": 0.9892,
+    "recall_sd": 0.0092,
+    "worst": 0.9669,
+    "screen": 0.1901,
+    "precision": 0.055,
+    "degenerate": 6,
+    "feasible": 16
+   }
+  ],
+  "lodo": [
+   {
+    "decade": 1940,
+    "n_pos": 32,
+    "recall": 0.9375,
+    "screen": 0.5984,
+    "stems": 19.0
+   },
+   {
+    "decade": 1960,
+    "n_pos": 84,
+    "recall": 0.9405,
+    "screen": 0.6908,
+    "stems": 11.0
+   },
+   {
+    "decade": 1970,
+    "n_pos": 74,
+    "recall": 0.9459,
+    "screen": 0.6877,
+    "stems": 13.0
+   },
+   {
+    "decade": 1980,
+    "n_pos": 64,
+    "recall": 0.9375,
+    "screen": 0.5299,
+    "stems": 2.0
+   },
+   {
+    "decade": 1990,
+    "n_pos": 21,
+    "recall": 1.0,
+    "screen": 0.72,
+    "stems": 25.0
+   },
+   {
+    "decade": 2000,
+    "n_pos": 143,
+    "recall": 0.972,
+    "screen": 0.3653,
+    "stems": 4.0
+   },
+   {
+    "decade": 2010,
+    "n_pos": 209,
+    "recall": 0.9569,
+    "screen": 0.3835,
+    "stems": 8.0
+   },
+   {
+    "decade": 2020,
+    "n_pos": 26,
+    "recall": 0.9615,
+    "screen": 0.288,
+    "stems": 3.0
+   }
+  ],
+  "within": [
+   {
+    "decade": 1940,
+    "n_pos": 32,
+    "recall": 0.7679,
+    "screen": 0.3464,
+    "stems": 1.2
+   },
+   {
+    "decade": 1960,
+    "n_pos": 84,
+    "recall": 0.9394,
+    "screen": 0.2774,
+    "stems": 1.6
+   },
+   {
+    "decade": 1970,
+    "n_pos": 74,
+    "recall": 0.9445,
+    "screen": 0.3564,
+    "stems": 1.6
+   },
+   {
+    "decade": 1980,
+    "n_pos": 64,
+    "recall": 0.8624,
+    "screen": 0.5051,
+    "stems": 1.5
+   },
+   {
+    "decade": 1990,
+    "n_pos": 21,
+    "recall": 0.8609,
+    "screen": 0.669,
+    "stems": 1.0
+   },
+   {
+    "decade": 2000,
+    "n_pos": 143,
+    "recall": 0.9458,
+    "screen": 0.472,
+    "stems": 1.9
+   },
+   {
+    "decade": 2010,
+    "n_pos": 209,
+    "recall": 0.9521,
+    "screen": 0.3785,
+    "stems": 2.0
+   },
+   {
+    "decade": 2020,
+    "n_pos": 26,
+    "recall": 0.7379,
+    "screen": 0.515,
+    "stems": 1.1
+   }
+  ],
+  "sliced": [
+   {
+    "decade": 1940,
+    "recall": 0.8918,
+    "screen": 0.5085
+   },
+   {
+    "decade": 1960,
+    "recall": 0.9343,
+    "screen": 0.5425
+   },
+   {
+    "decade": 1970,
+    "recall": 0.9455,
+    "screen": 0.5776
+   },
+   {
+    "decade": 1980,
+    "recall": 0.9729,
+    "screen": 0.5163
+   },
+   {
+    "decade": 1990,
+    "recall": 0.9907,
+    "screen": 0.6119
+   },
+   {
+    "decade": 2000,
+    "recall": 0.9761,
+    "screen": 0.4132
+   },
+   {
+    "decade": 2010,
+    "recall": 0.9468,
+    "screen": 0.4258
+   },
+   {
+    "decade": 2020,
+    "recall": 0.9585,
+    "screen": 0.3981
+   }
+  ],
+  "withinFail": {
+   "0.9": [
+    160,
+    18
+   ],
+   "0.95": [
+    160,
+    47
+   ],
+   "0.98": [
+    160,
+    85
+   ],
+   "0.99": [
+    160,
+    102
+   ]
+  },
+  "stability": [
+   {
+    "stem": "regul",
+    "freq": 0.65,
+    "rank": 2.5
+   },
+   {
+    "stem": "consult",
+    "freq": 0.45,
+    "rank": 2.6
+   },
+   {
+    "stem": "with",
+    "freq": 0.35,
+    "rank": 1.0
+   },
+   {
+    "stem": "secretari",
+    "freq": 0.35,
+    "rank": 2.0
+   },
+   {
+    "stem": "cooper",
+    "freq": 0.35,
+    "rank": 7.9
+   },
+   {
+    "stem": "feder",
+    "freq": 0.25,
+    "rank": 1.0
+   },
+   {
+    "stem": "repres",
+    "freq": 0.25,
+    "rank": 3.4
+   },
+   {
+    "stem": "plan",
+    "freq": 0.25,
+    "rank": 4.0
+   },
+   {
+    "stem": "recommend",
+    "freq": 0.25,
+    "rank": 5.8
+   },
+   {
+    "stem": "establish",
+    "freq": 0.2,
+    "rank": 3.0
+   }
+  ],
+  "stabSummary": {
+   "total": 71,
+   "core": 0,
+   "over50": 1
+  },
+  "sweep": [
+   {
+    "tau": 0.5,
+    "stems": 2.0,
+    "recall": 0.563,
+    "screen": 0.8993,
+    "f2": 0.4568
+   },
+   {
+    "tau": 0.6,
+    "stems": 2.9,
+    "recall": 0.6422,
+    "screen": 0.8688,
+    "f2": 0.4719
+   },
+   {
+    "tau": 0.7,
+    "stems": 3.9,
+    "recall": 0.7141,
+    "screen": 0.8396,
+    "f2": 0.48
+   },
+   {
+    "tau": 0.8,
+    "stems": 5.3,
+    "recall": 0.7914,
+    "screen": 0.8038,
+    "f2": 0.4819
+   },
+   {
+    "tau": 0.9,
+    "stems": 8.8,
+    "recall": 0.8713,
+    "screen": 0.7389,
+    "f2": 0.4535
+   },
+   {
+    "tau": 0.95,
+    "stems": 12.2,
+    "recall": 0.9012,
+    "screen": 0.6946,
+    "f2": 0.4267
+   },
+   {
+    "tau": 0.97,
+    "stems": 14.6,
+    "recall": 0.9129,
+    "screen": 0.6742,
+    "f2": 0.415
+   },
+   {
+    "tau": 0.98,
+    "stems": 16.3,
+    "recall": 0.9189,
+    "screen": 0.6628,
+    "f2": 0.4088
+   },
+   {
+    "tau": 0.99,
+    "stems": 18.8,
+    "recall": 0.9206,
+    "screen": 0.6561,
+    "f2": 0.4044
+   },
+   {
+    "tau": 0.995,
+    "stems": 20.5,
+    "recall": 0.9236,
+    "screen": 0.6459,
+    "f2": 0.3981
+   },
+   {
+    "tau": 1.0,
+    "stems": 20.9,
+    "recall": 0.9242,
+    "screen": 0.6422,
+    "f2": 0.3956
+   }
+  ]
+ },
+ "q6": {
+  "regex": "\\b(build|capit|construct|famili|flood|highwai|infrastructur|instal|interior|land|mainten|power|repair|water)\\w*",
+  "stems": [
+   "build",
+   "capit",
+   "construct",
+   "famili",
+   "flood",
+   "highwai",
+   "infrastructur",
+   "instal",
+   "interior",
+   "land",
+   "mainten",
+   "power",
+   "repair",
+   "water"
+  ],
+  "cv": [
+   {
+    "target": 0.9,
+    "stems": 11.7,
+    "recall": 0.9252,
+    "recall_sd": 0.0219,
+    "worst": 0.8738,
+    "screen": 0.6851,
+    "precision": 0.3248,
+    "degenerate": 0,
+    "feasible": 20
+   },
+   {
+    "target": 0.95,
+    "stems": 19.7,
+    "recall": 0.9644,
+    "recall_sd": 0.0115,
+    "worst": 0.9463,
+    "screen": 0.5669,
+    "precision": 0.246,
+    "degenerate": 0,
+    "feasible": 20
+   },
+   {
+    "target": 0.98,
+    "stems": 10.6,
+    "recall": 0.9816,
+    "recall_sd": 0.0096,
+    "worst": 0.9565,
+    "screen": 0.2192,
+    "precision": 0.1396,
+    "degenerate": 3,
+    "feasible": 17
+   },
+   {
+    "target": 0.99,
+    "stems": 6.2,
+    "recall": 0.9882,
+    "recall_sd": 0.0096,
+    "worst": 0.9646,
+    "screen": 0.0853,
+    "precision": 0.1195,
+    "degenerate": 17,
+    "feasible": 8
+   }
+  ],
+  "lodo": [
+   {
+    "decade": 1940,
+    "n_pos": 199,
+    "recall": 0.9648,
+    "screen": 0.638,
+    "stems": 23.0
+   },
+   {
+    "decade": 1960,
+    "n_pos": 240,
+    "recall": 0.9667,
+    "screen": 0.6357,
+    "stems": 11.0
+   },
+   {
+    "decade": 1970,
+    "n_pos": 204,
+    "recall": 0.9216,
+    "screen": 0.6883,
+    "stems": 21.0
+   },
+   {
+    "decade": 1980,
+    "n_pos": 108,
+    "recall": 0.9815,
+    "screen": 0.6349,
+    "stems": 26.0
+   },
+   {
+    "decade": 1990,
+    "n_pos": 76,
+    "recall": 0.9474,
+    "screen": 0.6067,
+    "stems": 31.0
+   },
+   {
+    "decade": 2000,
+    "n_pos": 273,
+    "recall": 0.956,
+    "screen": 0.4608,
+    "stems": 27.0
+   },
+   {
+    "decade": 2010,
+    "n_pos": 455,
+    "recall": 0.9824,
+    "screen": 0.4844,
+    "stems": 35.0
+   },
+   {
+    "decade": 2020,
+    "n_pos": 49,
+    "recall": 0.9184,
+    "screen": 0.4747,
+    "stems": 25.0
+   }
+  ],
+  "within": [
+   {
+    "decade": 1940,
+    "n_pos": 199,
+    "recall": 0.9325,
+    "screen": 0.3194,
+    "stems": 3.6
+   },
+   {
+    "decade": 1960,
+    "n_pos": 240,
+    "recall": 0.9421,
+    "screen": 0.4015,
+    "stems": 4.9
+   },
+   {
+    "decade": 1970,
+    "n_pos": 204,
+    "recall": 0.9407,
+    "screen": 0.2411,
+    "stems": 2.9
+   },
+   {
+    "decade": 1980,
+    "n_pos": 108,
+    "recall": 0.9366,
+    "screen": 0.1371,
+    "stems": 1.7
+   },
+   {
+    "decade": 1990,
+    "n_pos": 76,
+    "recall": 0.9135,
+    "screen": 0.323,
+    "stems": 1.9
+   },
+   {
+    "decade": 2000,
+    "n_pos": 273,
+    "recall": 0.9754,
+    "screen": 0.2111,
+    "stems": 2.1
+   },
+   {
+    "decade": 2010,
+    "n_pos": 455,
+    "recall": 0.9443,
+    "screen": 0.4379,
+    "stems": 6.0
+   },
+   {
+    "decade": 2020,
+    "n_pos": 49,
+    "recall": 0.7492,
+    "screen": 0.4811,
+    "stems": 2.4
+   }
+  ],
+  "sliced": [
+   {
+    "decade": 1940,
+    "recall": 0.9693,
+    "screen": 0.5871
+   },
+   {
+    "decade": 1960,
+    "recall": 0.9663,
+    "screen": 0.5963
+   },
+   {
+    "decade": 1970,
+    "recall": 0.9513,
+    "screen": 0.6363
+   },
+   {
+    "decade": 1980,
+    "recall": 0.986,
+    "screen": 0.603
+   },
+   {
+    "decade": 1990,
+    "recall": 0.9644,
+    "screen": 0.6551
+   },
+   {
+    "decade": 2000,
+    "recall": 0.9473,
+    "screen": 0.5098
+   },
+   {
+    "decade": 2010,
+    "recall": 0.9754,
+    "screen": 0.5315
+   },
+   {
+    "decade": 2020,
+    "recall": 0.9392,
+    "screen": 0.5037
+   }
+  ],
+  "withinFail": {
+   "0.9": [
+    160,
+    7
+   ],
+   "0.95": [
+    160,
+    19
+   ],
+   "0.98": [
+    160,
+    58
+   ],
+   "0.99": [
+    160,
+    95
+   ]
+  },
+  "stability": [
+   {
+    "stem": "construct",
+    "freq": 1.0,
+    "rank": 1.0
+   },
+   {
+    "stem": "mainten",
+    "freq": 1.0,
+    "rank": 2.0
+   },
+   {
+    "stem": "build",
+    "freq": 0.85,
+    "rank": 5.8
+   },
+   {
+    "stem": "instal",
+    "freq": 0.6,
+    "rank": 10.0
+   },
+   {
+    "stem": "interior",
+    "freq": 0.6,
+    "rank": 10.0
+   },
+   {
+    "stem": "project",
+    "freq": 0.55,
+    "rank": 3.3
+   },
+   {
+    "stem": "facil",
+    "freq": 0.55,
+    "rank": 5.4
+   },
+   {
+    "stem": "improv",
+    "freq": 0.55,
+    "rank": 5.5
+   },
+   {
+    "stem": "land",
+    "freq": 0.5,
+    "rank": 5.3
+   },
+   {
+    "stem": "water",
+    "freq": 0.45,
+    "rank": 4.7
+   }
+  ],
+  "stabSummary": {
+   "total": 107,
+   "core": 2,
+   "over50": 9
+  },
+  "sweep": [
+   {
+    "tau": 0.5,
+    "stems": 1.0,
+    "recall": 0.592,
+    "screen": 0.901,
+    "f2": 0.6065
+   },
+   {
+    "tau": 0.6,
+    "stems": 1.6,
+    "recall": 0.6841,
+    "screen": 0.8747,
+    "f2": 0.6706
+   },
+   {
+    "tau": 0.7,
+    "stems": 2.0,
+    "recall": 0.7629,
+    "screen": 0.853,
+    "f2": 0.7188
+   },
+   {
+    "tau": 0.8,
+    "stems": 3.2,
+    "recall": 0.8029,
+    "screen": 0.822,
+    "f2": 0.7202
+   },
+   {
+    "tau": 0.9,
+    "stems": 8.1,
+    "recall": 0.8806,
+    "screen": 0.7448,
+    "f2": 0.7032
+   },
+   {
+    "tau": 0.95,
+    "stems": 13.8,
+    "recall": 0.9205,
+    "screen": 0.6793,
+    "f2": 0.6727
+   },
+   {
+    "tau": 0.97,
+    "stems": 18.1,
+    "recall": 0.935,
+    "screen": 0.6408,
+    "f2": 0.6511
+   },
+   {
+    "tau": 0.98,
+    "stems": 21.5,
+    "recall": 0.9409,
+    "screen": 0.6222,
+    "f2": 0.6405
+   },
+   {
+    "tau": 0.99,
+    "stems": 26.8,
+    "recall": 0.9462,
+    "screen": 0.5989,
+    "f2": 0.6264
+   },
+   {
+    "tau": 0.995,
+    "stems": 30.6,
+    "recall": 0.948,
+    "screen": 0.594,
+    "f2": 0.624
+   },
+   {
+    "tau": 1.0,
+    "stems": 32.6,
+    "recall": 0.9494,
+    "screen": 0.5873,
+    "f2": 0.62
+   }
+  ]
+ },
+ "cascade": [
+  {
+   "question": "Q6",
+   "stage": "classifier_only",
+   "matcher": null,
+   "target": null,
+   "stems": null,
+   "filter_recall": null,
+   "llm": 1.0,
+   "recall": 0.8276,
+   "precision": 0.6562,
+   "lost": 0
+  },
+  {
+   "question": "Q6",
+   "stage": "filter+classifier",
+   "matcher": null,
+   "target": 0.9,
+   "stems": 14.0,
+   "filter_recall": 0.9458128078817734,
+   "llm": 0.3127,
+   "recall": 0.798,
+   "precision": 0.7431,
+   "lost": 6
+  },
+  {
+   "question": "Q6",
+   "stage": "filter+classifier",
+   "matcher": null,
+   "target": 0.95,
+   "stems": 11.0,
+   "filter_recall": 0.9458128078817734,
+   "llm": 0.4232,
+   "recall": 0.7882,
+   "precision": 0.7273,
+   "lost": 8
+  },
+  {
+   "question": "Q6",
+   "stage": "filter+classifier",
+   "matcher": null,
+   "target": 0.98,
+   "stems": 11.0,
+   "filter_recall": 0.9852216748768472,
+   "llm": 0.689,
+   "recall": 0.8128,
+   "precision": 0.6933,
+   "lost": 3
+  },
+  {
+   "question": "Q1",
+   "stage": "classifier_only",
+   "matcher": null,
+   "target": null,
+   "stems": null,
+   "filter_recall": null,
+   "llm": 1.0,
+   "recall": 0.4706,
+   "precision": 0.5714,
+   "lost": 0
+  },
+  {
+   "question": "Q1",
+   "stage": "filter+classifier",
+   "matcher": null,
+   "target": 0.9,
+   "stems": 12.0,
+   "filter_recall": 0.8529411764705882,
+   "llm": 0.2728,
+   "recall": 0.4559,
+   "precision": 0.6327,
+   "lost": 1
+  },
+  {
+   "question": "Q1",
+   "stage": "filter+classifier",
+   "matcher": null,
+   "target": 0.95,
+   "stems": 2.0,
+   "filter_recall": 0.9558823529411764,
+   "llm": 0.4734,
+   "recall": 0.4706,
+   "precision": 0.6038,
+   "lost": 0
+  },
+  {
+   "question": "Q1",
+   "stage": "filter+classifier",
+   "matcher": null,
+   "target": 0.98,
+   "stems": 2.0,
+   "filter_recall": 0.9852941176470588,
+   "llm": 0.6769,
+   "recall": 0.4706,
+   "precision": 0.5714,
+   "lost": 0
+  },
+  {
+   "question": "Q1",
+   "stage": "variant:q1_11stem_no_he",
+   "matcher": "stem_set",
+   "target": null,
+   "stems": 11.0,
+   "filter_recall": 0.8382352941176471,
+   "llm": 0.2348,
+   "recall": 0.4412,
+   "precision": 0.625,
+   "lost": 2
+  },
+  {
+   "question": "Q1",
+   "stage": "variant:q1_11stem_no_he",
+   "matcher": "prefix_regex",
+   "target": null,
+   "stems": 11.0,
+   "filter_recall": 0.8235294117647058,
+   "llm": 0.2297,
+   "recall": 0.4412,
+   "precision": 0.6383,
+   "lost": 2
+  }
+ ]
+};
